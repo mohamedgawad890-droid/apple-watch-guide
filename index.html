@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple Watch Series 11 — دليل تفاعلي</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --surface: #111111;
+    --surface2: #1a1a1a;
+    --surface3: #222222;
+    --border: rgba(255,255,255,0.08);
+    --border-bright: rgba(255,255,255,0.15);
+    --text: #f0f0f0;
+    --text-muted: #888;
+    --text-dim: #555;
+    --accent: #FF6B35;
+    --accent2: #FF3B30;
+    --accent3: #34C759;
+    --accent4: #007AFF;
+    --accent5: #AF52DE;
+    --accent6: #FF9500;
+    --gold: #FFD60A;
+    --radius: 20px;
+    --radius-sm: 12px;
+    --font-ar: 'Tajawal', sans-serif;
+    --font-en: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-ar);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body.en { font-family: var(--font-en); direction: ltr; }
+  body.en * { font-family: var(--font-en); }
+  body:not(.en) * { font-family: var(--font-ar); }
+
+  /* Background */
+  .bg-orbs {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    overflow: hidden;
+  }
+  .bg-orbs::before {
+    content: '';
+    position: absolute;
+    top: -20%; left: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,107,53,0.07) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: drift1 20s ease-in-out infinite;
+  }
+  .bg-orbs::after {
+    content: '';
+    position: absolute;
+    bottom: -20%; right: -10%;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(0,122,255,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: drift2 25s ease-in-out infinite;
+  }
+  @keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(80px,60px)} }
+  @keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-60px,-80px)} }
+
+  /* Layout */
+  .wrapper { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+  /* ─── HEADER ─── */
+  header {
+    padding: 24px 0 20px;
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(8,8,8,0.85);
+  }
+  .header-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 20px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .logo-icon {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, #1c1c1e, #2c2c2e);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    border: 1px solid var(--border-bright);
+  }
+  .logo-text { font-size: 16px; font-weight: 700; color: var(--text); }
+  .logo-sub { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+
+  .lang-toggle {
+    display: flex;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 4px;
+    gap: 2px;
+  }
+  .lang-btn {
+    padding: 8px 18px;
+    border-radius: 100px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: inherit;
+  }
+  .lang-btn.active {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 80px 0 60px;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,107,53,0.1);
+    border: 1px solid rgba(255,107,53,0.3);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-title {
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    animation: fadeUp 0.6s ease 0.1s both;
+    margin-bottom: 16px;
+  }
+  .hero-title span {
+    background: linear-gradient(135deg, var(--accent) 0%, #ff3b30 50%, #ff9500 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: clamp(15px, 2vw, 18px);
+    color: var(--text-muted);
+    max-width: 520px;
+    margin: 0 auto 48px;
+    line-height: 1.7;
+    animation: fadeUp 0.6s ease 0.2s both;
+  }
+  .hero-stats {
+    display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+    animation: fadeUp 0.6s ease 0.3s both;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-size: 32px; font-weight: 800; color: var(--accent); }
+  .stat-lbl { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECTION TITLE ─── */
+  .section-header {
+    margin-bottom: 32px;
+  }
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 800;
+    color: var(--text);
+  }
+
+  /* ─── CATEGORIES GRID ─── */
+  .categories-section { padding: 20px 0 60px; }
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .cat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    position: relative;
+    overflow: hidden;
+  }
+  .cat-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--card-color, var(--accent)), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .cat-card:hover { transform: translateY(-4px) scale(1.02); border-color: var(--card-color, var(--accent)); }
+  .cat-card:hover::before { opacity: 0.06; }
+  .cat-card.active {
+    border-color: var(--card-color, var(--accent));
+    background: var(--surface2);
+  }
+  .cat-card.active::before { opacity: 0.1; }
+
+  .cat-icon {
+    font-size: 36px;
+    margin-bottom: 16px;
+    display: block;
+    transition: transform 0.3s;
+  }
+  .cat-card:hover .cat-icon { transform: scale(1.15) rotate(-5deg); }
+  .cat-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .cat-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .cat-count {
+    display: inline-flex;
+    margin-top: 14px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 100px;
+    padding: 4px 10px;
+    font-size: 11px;
+    color: var(--text-dim);
+    font-weight: 600;
+  }
+
+  /* ─── DETAIL PANEL ─── */
+  .detail-panel {
+    display: none;
+    margin: 0 0 60px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    animation: panelIn 0.4s cubic-bezier(0.34,1.2,0.64,1) both;
+  }
+  .detail-panel.open { display: block; }
+
+  @keyframes panelIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .panel-header {
+    padding: 28px 32px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent);
+  }
+  .panel-header-left { display: flex; align-items: center; gap: 16px; }
+  .panel-icon-big {
+    font-size: 44px;
+    width: 70px; height: 70px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--surface2);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .panel-title { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+  .panel-subtitle { font-size: 14px; color: var(--text-muted); }
+  .panel-close {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .panel-close:hover { background: var(--surface3); color: var(--text); }
+
+  .features-list {
+    padding: 24px 32px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .feature-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .feature-item:hover { border-color: var(--border-bright); }
+
+  .feature-trigger {
+    width: 100%;
+    padding: 18px 22px;
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    text-align: inherit;
+    transition: background 0.2s;
+  }
+  .feature-trigger:hover { background: rgba(255,255,255,0.03); }
+
+  .feature-trigger-left { display: flex; align-items: center; gap: 14px; }
+  .feature-emoji { font-size: 22px; width: 36px; text-align: center; }
+  .feature-name { font-size: 15px; font-weight: 700; font-family: inherit; }
+  .feature-tagline { font-size: 12px; color: var(--text-muted); margin-top: 2px; font-family: inherit; }
+  .feature-chevron {
+    color: var(--text-dim);
+    font-size: 12px;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+  .feature-item.expanded .feature-chevron { transform: rotate(180deg); }
+
+  .feature-body {
+    display: none;
+    padding: 0 22px 22px;
+  }
+  .feature-item.expanded .feature-body { display: block; animation: fadeDown 0.3s ease both; }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .feature-divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 18px;
+  }
+
+  .info-block {
+    margin-bottom: 18px;
+  }
+  .info-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .info-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-benefit { background: var(--accent3); }
+  .dot-steps { background: var(--accent4); }
+  .dot-tips { background: var(--gold); }
+  .label-benefit { color: var(--accent3); }
+  .label-steps { color: var(--accent4); }
+  .label-tips { color: var(--gold); }
+
+  .info-content {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  .steps-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .steps-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .step-num {
+    width: 22px; height: 22px;
+    background: var(--accent4);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .tips-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .tip-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(255,214,10,0.05);
+    border: 1px solid rgba(255,214,10,0.15);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #d4a800;
+    line-height: 1.6;
+  }
+  .tip-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ─── CHECKLIST SECTION ─── */
+  .checklist-section { padding: 20px 0 60px; }
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .check-item:hover { border-color: var(--border-bright); background: var(--surface2); }
+  .check-item.done { border-color: rgba(52,199,89,0.3); background: rgba(52,199,89,0.04); }
+  .check-box {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    border: 2px solid var(--border-bright);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .check-item.done .check-box {
+    background: var(--accent3);
+    border-color: var(--accent3);
+  }
+  .check-tick { display: none; color: #fff; font-size: 12px; }
+  .check-item.done .check-tick { display: block; }
+  .check-text {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.4;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .check-item.done .check-text {
+    color: var(--text-dim);
+    text-decoration: line-through;
+  }
+  .checklist-progress {
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .progress-bar-wrap {
+    flex: 1;
+    height: 6px;
+    background: var(--surface2);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent3), var(--accent4));
+    border-radius: 100px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    font-weight: 600;
+    min-width: 60px;
+  }
+  .progress-count {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--accent3);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  /* ─── SCROLL TO TOP ─── */
+  .scroll-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 46px; height: 46px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 200;
+    box-shadow: 0 4px 24px rgba(255,107,53,0.4);
+  }
+  .scroll-top.visible { opacity: 1; pointer-events: auto; }
+  .scroll-top:hover { transform: translateY(-3px); }
+  body.en .scroll-top { right: auto; left: 32px; }
+
+  /* ─── UTILITIES ─── */
+  .ar { display: block; } .en-text { display: none; }
+  body.en .ar { display: none; } body.en .en-text { display: block; }
+  .sep { margin: 0 0 60px; height: 1px; background: var(--border); }
+
+  @media (max-width: 600px) {
+    .hero { padding: 50px 0 40px; }
+    .panel-header { padding: 20px; flex-direction: column; }
+    .features-list { padding: 16px 16px 24px; }
+    .panel-header-left { flex-direction: column; align-items: flex-start; }
+    .hero-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-orbs"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">⌚</div>
+      <div>
+        <div class="logo-text">
+          <span class="ar">دليل Apple Watch</span>
+          <span class="en-text">Apple Watch Guide</span>
+        </div>
+        <div class="logo-sub">Series 11 · 2025</div>
+      </div>
+    </div>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btnAr" onclick="setLang('ar')">عربي</button>
+      <button class="lang-btn" id="btnEn" onclick="setLang('en')">English</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="wrapper">
+  <section class="hero">
+    <div class="hero-badge">
+      <span>✦</span>
+      <span class="ar">Apple Watch Series 11 — دليلك الشامل</span>
+      <span class="en-text">Apple Watch Series 11 — Complete Interactive Guide</span>
+    </div>
+    <h1 class="hero-title">
+      <span class="ar">اكتشف كل شيء<br>عن ساعتك</span>
+      <span class="en-text">Discover Everything<br>About Your <span>Watch</span></span>
+    </h1>
+    <p class="hero-sub">
+      <span class="ar">اضغط على أي هدف لترى الفوائد، الخطوات، والنصائح — بالعربي والإنجليزي</span>
+      <span class="en-text">Tap any goal to see benefits, steps, and tips — in Arabic & English</span>
+    </p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">8</div><div class="stat-lbl ar">أهداف</div><div class="stat-lbl en-text">Goals</div></div>
+      <div class="stat"><div class="stat-num">40+</div><div class="stat-lbl ar">ميزة</div><div class="stat-lbl en-text">Features</div></div>
+      <div class="stat"><div class="stat-num">12</div><div class="stat-lbl ar">درساً</div><div class="stat-lbl en-text">Lessons</div></div>
+      <div class="stat"><div class="stat-num">∞</div><div class="stat-lbl ar">نصائح</div><div class="stat-lbl en-text">Tips</div></div>
+    </div>
+  </section>
+</div>
+
+<!-- CATEGORIES -->
+<div class="wrapper">
+  <section class="categories-section">
+    <div class="section-header">
+      <div class="section-label ar">ابدأ من هنا</div>
+      <div class="section-label en-text">START HERE</div>
+      <h2 class="section-title">
+        <span class="ar">اختر هدفك</span>
+        <span class="en-text">Choose Your Goal</span>
+      </h2>
+    </div>
+    <div class="categories-grid" id="catGrid"></div>
+  </section>
+
+  <!-- DETAIL PANEL -->
+  <div class="detail-panel" id="detailPanel">
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <div class="panel-icon-big" id="panelIcon"></div>
+        <div>
+          <div class="panel-title" id="panelTitle"></div>
+          <div class="panel-subtitle" id="panelSubtitle"></div>
+        </div>
+      </div>
+      <button class="panel-close" onclick="closePanel()">✕</button>
+    </div>
+    <div class="features-list" id="featuresList"></div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- CHECKLIST -->
+  <section class="checklist-section">
+    <div class="section-header">
+      <div class="section-label ar">افعل هذا اليوم</div>
+      <div class="section-label en-text">DO THIS TODAY</div>
+      <h2 class="section-title">
+        <span class="ar">قائمة الإعداد الأساسية</span>
+        <span class="en-text">Essential Setup Checklist</span>
+      </h2>
+    </div>
+    <div class="checklist-progress">
+      <div class="progress-count" id="checkCount">0</div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
+      <div class="progress-label" id="progressLabel"></div>
+    </div>
+    <div class="checklist-grid" id="checklistGrid"></div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ar">
+    ⌚ Apple Watch Series 11 — دليل تفاعلي ثنائي اللغة<br>
+    <span style="color:var(--text-dim);font-size:12px">مبني بـ HTML · CSS · JavaScript — مفتوح المصدر على GitHub</span>
+  </div>
+  <div class="en-text">
+    ⌚ Apple Watch Series 11 — Interactive Bilingual Guide<br>
+    <span style="color:var(--text-dim);font-size:12px">Built with HTML · CSS · JavaScript — Open Source on GitHub</span>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ─────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────
+const DATA = {
+  categories: [
+    {
+      id: 'controls',
+      icon: '🕹️',
+      color: '#FF6B35',
+      ar: { title: 'التحكم الأساسي', desc: 'الأزرار، الإيماءات، والتنقل', count: '5 ميزات' },
+      en: { title: 'Basic Controls', desc: 'Buttons, gestures & navigation', count: '5 features' },
+      features: [
+        {
+          emoji: '🔘',
+          ar: { name: 'التاج الرقمي', tagline: 'الزر الدوّار الجانبي',
+            benefit: 'يتيح لك التنقل السريع عبر الساعة بدون لمس الشاشة. هو أهم أداة تحكم في ساعتك.',
+            steps: ['ضغطة واحدة → العودة لوجه الساعة', 'ضغطتان → آخر تطبيق استخدمته', 'ضغط وإمساك → تفعيل Siri', 'تدوير → التمرير في القوائم وضبط الصوت'],
+            tips: ['عند الجري، دوّر التاج لتغيير عرض بيانات التمرين بدون توقف', 'في التطبيقات، التدوير للأمام يكبّر — للخلف يصغّر'] },
+          en: { name: 'Digital Crown', tagline: 'The side rotating knob',
+            benefit: 'Navigate your watch without touching the screen. It\'s the most important control on your watch.',
+            steps: ['Single press → Back to watch face', 'Double press → Last used app', 'Press & hold → Activate Siri', 'Turn → Scroll lists, adjust volume, zoom'],
+            tips: ['While running, turn the crown to switch workout data views without stopping', 'In apps, forward = zoom in, back = zoom out'] }
+        },
+        {
+          emoji: '⬛',
+          ar: { name: 'الزر الجانبي', tagline: 'للدفع والطوارئ',
+            benefit: 'وصول سريع للدفع والتطبيقات المفضلة وخدمات الطوارئ.',
+            steps: ['ضغطة واحدة → قائمة التطبيقات المفضلة (App Dock)', 'ضغطتان → Apple Pay', 'الضغط والإمساك 5 ثوانٍ → SOS الطوارئ'],
+            tips: ['خصّص App Dock: تطبيق Watch على iPhone ← App Dock', 'في حالة الطوارئ: اضغط واستمر — لا تحتاج لفتح الساعة'] },
+          en: { name: 'Side Button', tagline: 'For payments & emergencies',
+            benefit: 'Quick access to payments, favorite apps, and emergency services.',
+            steps: ['Single press → App Dock (favorite apps)', 'Double press → Apple Pay', 'Press & hold 5 sec → Emergency SOS'],
+            tips: ['Customize App Dock: Watch app on iPhone → App Dock', 'In emergencies: press and hold — no need to unlock the watch'] }
+        },
+        {
+          emoji: '👆',
+          ar: { name: 'شاشة اللمس', tagline: 'الإيماءات الأساسية',
+            benefit: 'التفاعل المباشر مع الساعة بالإيماءات الأربع الأساسية.',
+            steps: ['اضغط → اختيار', 'اسحب لأعلى → Smart Stack', 'اسحب لأسفل → الإشعارات', 'اسحب يمين/يسار → تغيير وجه الساعة', 'اضغط مطولاً → تعديل وجه الساعة'],
+            tips: ['اسحب من حافة الشاشة اليسرى (وليس من الوسط) للوصول السريع لمركز التحكم', 'اضغط مطولاً على أي تطبيق في الشاشة الرئيسية لإعادة ترتيبه'] },
+          en: { name: 'Touch Screen', tagline: 'Core gestures',
+            benefit: 'Directly interact with your watch using four essential gestures.',
+            steps: ['Tap → Select', 'Swipe up → Smart Stack', 'Swipe down → Notifications', 'Swipe left/right → Change watch face', 'Press & hold → Edit watch face'],
+            tips: ['Swipe from the left edge (not the center) for quick Control Center access', 'Press and hold any app on the home screen to rearrange it'] }
+        },
+        {
+          emoji: '🤌',
+          ar: { name: 'النقر المزدوج', tagline: 'التحكم بدون لمس الشاشة',
+            benefit: 'اضغط الإبهام والسبابة مرتين في الهواء للتحكم بالساعة بدون لمسها — مثالي عندما يداك مشغولتان.',
+            steps: ['اذهب لـ: تطبيق Watch على iPhone', 'Accessibility ← Double Tap ← تشغيل', 'الآن اضغط الإبهام والسبابة مرتين في الهواء', 'يرد على المكالمات، يؤجل المنبّه، يتحكم بـ Smart Stack'],
+            tips: ['أفضل ميزة خفية في الساعة!', 'يعمل مع الكمامة أو القفازات', 'يرد تلقائياً على المكالمة إذا كانت ساعتك ترن'] },
+          en: { name: 'Double Tap', tagline: 'Hands-free control',
+            benefit: 'Pinch your thumb and index finger twice in the air to control your watch without touching it — perfect when your hands are busy.',
+            steps: ['Go to: Watch app on iPhone', 'Accessibility → Double Tap → Turn ON', 'Now pinch thumb + index finger twice in the air', 'Answers calls, snoozes alarms, controls Smart Stack'],
+            tips: ['The best hidden feature on the watch!', 'Works with gloves or a mask on', 'Automatically answers a ringing call'] }
+        },
+        {
+          emoji: '⌚',
+          ar: { name: 'وجوه الساعة', tagline: 'خصّص لوحة التحكم الخاصة بك',
+            benefit: 'وجه الساعة هو لوحة التحكم اليومية. خصّصه بالمعلومات التي تحتاجها.',
+            steps: ['اضغط مطولاً على وجه الساعة', 'اسحب يساراً لاستعراض الوجوه', 'اضغط + لإضافة وجه جديد', 'اضغط تعديل ← غيّر أي مضاعفة (complication)'],
+            tips: ['اعدّ 3 وجوه: عمل + رياضة + شخصي', 'Modular = أكثر وجه يعرض معلومات', 'اسحب بين الوجوه بسهولة من وجه الساعة مباشرة'] },
+          en: { name: 'Watch Faces', tagline: 'Customize your dashboard',
+            benefit: 'The watch face is your daily dashboard. Customize it with the info you need.',
+            steps: ['Press and hold the watch face', 'Swipe left to browse faces', 'Tap + to add a new face', 'Tap Edit → change any complication'],
+            tips: ['Set up 3 faces: work + fitness + personal', 'Modular = most info-dense face available', 'Swipe between faces directly from the watch face'] }
+        }
+      ]
+    },
+    {
+      id: 'health',
+      icon: '❤️',
+      color: '#FF3B30',
+      ar: { title: 'الصحة', desc: 'القلب، الأكسجين، ضغط الدم، ECG', count: '6 ميزات' },
+      en: { title: 'Health', desc: 'Heart rate, oxygen, BP, ECG', count: '6 features' },
+      features: [
+        {
+          emoji: '🫀',
+          ar: { name: 'مراقب معدل القلب', tagline: 'يعمل طوال اليوم تلقائياً',
+            benefit: 'يراقب قلبك باستمرار ويُنبّهك عند الارتفاع أو الانخفاض غير الطبيعي. كثير من المستخدمين اكتشفوا مشاكل قلبية حقيقية بهذه الطريقة.',
+            steps: ['يعمل تلقائياً — لا إعداد مطلوب', 'لعرض القراءة: افتح تطبيق Heart Rate', 'لضبط التنبيهات: Watch app ← Heart Rate ← High/Low HR', 'اضبط التنبيه العالي: 120 نبضة، المنخفض: 40 نبضة'],
+            tips: ['تنبيه عدم الانتظام: يكتشف الرجفان الأذيني (AFib) المحتمل', 'شارك نتائج القلب مع طبيبك من تطبيق Health', 'ارتدِ الساعة محكمة للدقة'] },
+          en: { name: 'Heart Rate Monitor', tagline: 'Runs automatically all day',
+            benefit: 'Continuously monitors your heart and alerts you to abnormal highs or lows. Many users have discovered real cardiac issues this way.',
+            steps: ['Works automatically — no setup needed', 'To view readings: open Heart Rate app', 'To set alerts: Watch app → Heart Rate → High/Low HR', 'Set high alert at 120 bpm, low at 40 bpm'],
+            tips: ['Irregular Rhythm Notification detects possible AFib', 'Share heart results with your doctor from the Health app', 'Wear watch snugly for accuracy'] }
+        },
+        {
+          emoji: '🫁',
+          ar: { name: 'الأكسجين في الدم (SpO2)', tagline: 'قياس تشبع الأكسجين',
+            benefit: 'يقيس نسبة الأكسجين في دمك. المعدل الطبيعي 95–100%. قيم أقل قد تشير لمشاكل في التنفس.',
+            steps: ['افتح تطبيق Blood Oxygen على الساعة', 'ابقَ ثابتاً وذراعك مسترخية', 'انتظر 15 ثانية للنتيجة', 'تأكد أن الساعة محكمة على المعصم'],
+            tips: ['لا تتحرك أثناء القياس — يؤثر على الدقة', 'انخفاض متكرر تحت 90% → استشر طبيبك', 'يعمل تلقائياً في الخلفية وأثناء النوم'] },
+          en: { name: 'Blood Oxygen (SpO2)', tagline: 'Oxygen saturation measurement',
+            benefit: 'Measures the oxygen saturation in your blood. Normal is 95–100%. Lower values may indicate breathing problems.',
+            steps: ['Open Blood Oxygen app on the watch', 'Stay still with your arm relaxed', 'Wait 15 seconds for results', 'Ensure watch fits snugly on wrist'],
+            tips: ['Do not move during measurement — affects accuracy', 'Frequent readings below 90% → consult a doctor', 'Works automatically in background and during sleep'] }
+        },
+        {
+          emoji: '📈',
+          ar: { name: 'رسم القلب الكهربائي (ECG)', tagline: 'مثل جهاز القلب عند الطبيب',
+            benefit: 'يأخذ قراءة ECG أحادية الاتجاه في 30 ثانية. يمكن مشاركتها مع طبيبك كملف PDF.',
+            steps: ['افتح تطبيق ECG على الساعة', 'أسند ذراعك على سطح مستوٍ مريح', 'ضع إصبعك على التاج الرقمي', 'انتظر 30 ثانية بدون حركة', 'احفظ النتيجة وشاركها مع طبيبك'],
+            tips: ['افعل هذا كل بضعة أسابيع', 'أفضل وقت: عند الراحة وليس بعد التمرين', 'نتيجة "غير محددة" = كررها أو استشر طبيبك'] },
+          en: { name: 'ECG (Electrocardiogram)', tagline: 'Like a doctor\'s heart tool',
+            benefit: 'Takes a 30-second single-lead ECG reading that can be shared with your doctor as a PDF.',
+            steps: ['Open ECG app on your watch', 'Rest your arm on a flat, comfortable surface', 'Place your finger on the Digital Crown', 'Wait 30 seconds without moving', 'Save & share results with your doctor'],
+            tips: ['Do this every few weeks', 'Best time: at rest, not after exercise', '"Inconclusive" result = try again or consult a doctor'] }
+        },
+        {
+          emoji: '🩺',
+          ar: { name: 'تنبيه ارتفاع ضغط الدم', tagline: 'جديد في Series 11',
+            benefit: 'يراقب نمط ضغط الدم عبر عدة ليالٍ من النوم ويُنبّهك إذا ظهرت علامات ارتفاع مزمن. هذا "القاتل الصامت" لا أعراض له — ساعتك تكشفه.',
+            steps: ['Health app على iPhone ← القلب ← ضغط الدم', 'فعّل المراقبة واتبع التعليمات', 'ارتدِ الساعة ليلاً لمدة أسبوع على الأقل', 'ستظهر رسالة إذا اكتُشف نمط غير طبيعي'],
+            tips: ['يحتاج بيانات نوم منتظمة لأسبوع لبدء العمل', 'النتيجة ليست تشخيصاً — بل تنبيه للاستشارة', 'أهم ميزة صحية في الجيل الجديد!'] },
+          en: { name: 'Hypertension Notification', tagline: 'New in Series 11',
+            benefit: 'Monitors blood pressure patterns over several nights of sleep and alerts you if signs of chronic high BP appear. It\'s the "silent killer" — your watch can catch it.',
+            steps: ['Health app on iPhone → Heart → Blood Pressure', 'Enable monitoring and follow instructions', 'Wear watch overnight for at least a week', 'You\'ll get a notification if an abnormal pattern is detected'],
+            tips: ['Needs a week of regular sleep data to begin working', 'The result is not a diagnosis — it\'s an alert to consult a doctor', 'The most important health feature in the new generation!'] }
+        },
+        {
+          emoji: '🌡️',
+          ar: { name: 'استشعار درجة الحرارة', tagline: 'يكشف المرض والتغيرات البيولوجية',
+            benefit: 'يتتبع درجة حرارة معصمك لاكتشاف الانحرافات عن معدلك الشخصي. مفيد للكشف المبكر عن المرض.',
+            steps: ['يعمل تلقائياً أثناء النوم', 'اعرض النتائج: Health app ← الجسم ← درجة الحرارة', 'للتفعيل الكامل: تأكد أن تتبع النوم مفعّل'],
+            tips: ['يقيس الانحراف عن معدلك — لا المطلق', 'ارتفاع مستمر 0.5+ درجة = جسمك يكافح شيئاً', 'للسيدات: مفيد لتتبع دورة الإباضة'] },
+          en: { name: 'Temperature Sensing', tagline: 'Detects illness & biological changes',
+            benefit: 'Tracks your wrist skin temperature to detect deviations from your personal baseline. Useful for early illness detection.',
+            steps: ['Works automatically during sleep', 'View results: Health app → Body → Temperature', 'For full activation: ensure sleep tracking is enabled'],
+            tips: ['Measures deviation from YOUR baseline — not absolute temp', 'Consistent rise of 0.5°+ means your body is fighting something', 'For women: useful for ovulation cycle tracking'] }
+        },
+        {
+          emoji: '🫶',
+          ar: { name: 'بطاقة المعلومات الطبية', tagline: 'مرئية لرجال الإسعاف حتى لو الساعة مقفلة',
+            benefit: 'تخزّن معلوماتك الطبية الحيوية التي يمكن لرجال الإسعاف الوصول إليها في أي وقت.',
+            steps: ['iPhone ← تطبيق Health ← اسمك في الأعلى', 'Medical ID ← تعديل', 'أضف: فصيلة الدم، الحساسيات، الأمراض، الأدوية', 'فعّل: "إظهار عند القفل"', 'أضف جهات اتصال الطوارئ'],
+            tips: ['أهم إعداد تفعله اليوم — قد ينقذ حياتك', 'رجال الإسعاف يضغطون جانب ← طوارئ طبية لرؤيتها', 'حدّثها كلما تغير دواؤك أو حالتك'] },
+          en: { name: 'Medical ID', tagline: 'Visible to paramedics even when locked',
+            benefit: 'Stores your vital medical info that first responders can access at any time, even when the watch is locked.',
+            steps: ['iPhone → Health app → your name at top', 'Medical ID → Edit', 'Add: blood type, allergies, conditions, medications', 'Enable: "Show When Locked"', 'Add emergency contacts'],
+            tips: ['Most important setup you\'ll do today — it could save your life', 'Paramedics press side button → Emergency Medical to see it', 'Update it whenever your medication or condition changes'] }
+        }
+      ]
+    },
+    {
+      id: 'fitness',
+      icon: '🏃',
+      color: '#34C759',
+      ar: { title: 'اللياقة البدنية', desc: 'التمارين، GPS، حلقات النشاط', count: '5 ميزات' },
+      en: { title: 'Fitness', desc: 'Workouts, GPS, activity rings', count: '5 features' },
+      features: [
+        {
+          emoji: '💪',
+          ar: { name: 'تطبيق التمرين', tagline: '40+ نوع من التمارين',
+            benefit: 'تتبع أي تمرين بدقة عالية مع GPS، معدل القلب، السعرات المحروقة، والمسافة.',
+            steps: ['افتح تطبيق Workout على الساعة', 'مرّر لإيجاد نوع تمرينك', 'اضغط عليه ← عداد تنازلي 3 ثوانٍ ← يبدأ', 'اضغط على الشاشة أثناء التمرين لرؤية البيانات', 'مرّر لليسار ← أوقف التمرين'],
+            tips: ['اضبط هدف التمرين (مسافة أو وقت أو سعرات) قبل البدء', 'أثناء السباحة: فعّل Water Lock أولاً', 'بعد التمرين: راجع الملخص الكامل في تطبيق Fitness'] },
+          en: { name: 'Workout App', tagline: '40+ workout types',
+            benefit: 'Track any workout with high accuracy: GPS, heart rate, calories burned, and distance.',
+            steps: ['Open Workout app on the watch', 'Scroll to find your workout type', 'Tap it → 3-second countdown → starts', 'Tap the screen during workout to see data', 'Swipe left → End Workout'],
+            tips: ['Set a workout goal (distance/time/calories) before starting', 'For swimming: enable Water Lock first', 'After workout: review full summary in the Fitness app'] }
+        },
+        {
+          emoji: '🔴🟢🔵',
+          ar: { name: 'حلقات النشاط الثلاث', tagline: 'نظام التحفيز اليومي',
+            benefit: 'ثلاث حلقات تحفّزك يومياً على الحركة، التمرين، والوقوف. إغلاقها جميعاً هو الهدف اليومي.',
+            steps: ['الحمراء (Move): سعرات نشطة — أنت تحدد الهدف', 'الخضراء (Exercise): 30 دقيقة رياضة يومياً', 'الزرقاء (Stand): قف دقيقة كل ساعة، 12 ساعة يومياً', 'غيّر هدف الحركة: اضغط مطولاً على الحلقات ← غيّر الهدف'],
+            tips: ['ابدأ بهدف 300-400 سعرة وزده تدريجياً', 'الوقوف: مجرد الوقوف دقيقة يكفي — لا تحتاج للمشي', 'مشاركة الحلقات مع الأصدقاء للتحدي الممتع'] },
+          en: { name: 'Three Activity Rings', tagline: 'Daily motivation system',
+            benefit: 'Three rings motivate you daily to move, exercise, and stand. Closing all three is the daily goal.',
+            steps: ['Red (Move): Active calories — you set the goal', 'Green (Exercise): 30 min of elevated heart rate daily', 'Blue (Stand): Stand 1 min every hour, for 12 hours', 'Change Move goal: press & hold rings → Change Goal'],
+            tips: ['Start with a 300–400 calorie goal and raise it gradually', 'Stand ring: just standing for one minute counts — no walking needed', 'Share rings with friends for fun competition'] }
+        },
+        {
+          emoji: '📍',
+          ar: { name: 'تتبع GPS', tagline: 'يعمل بدون هاتفك',
+            benefit: 'يرسم مسار جريك، مشيتك أو ركوبك على الخريطة تلقائياً. يعمل بدون iPhone.',
+            steps: ['يعمل تلقائياً مع التمارين الخارجية', 'راجع المسارات في Fitness app على iPhone', 'Workouts ← اضغط أي تمرين ← شاهد الخريطة والإحصاءات'],
+            tips: ['أول GPS متصل بعدة ثوانٍ بعد الخروج للهواء الطلق', 'للدقة الأعلى: اصطحب iPhone معك للـ dual GPS', 'يحفظ المسارات تلقائياً حتى لو نسيت'] },
+          en: { name: 'GPS Tracking', tagline: 'Works without your phone',
+            benefit: 'Automatically maps your run, walk, or ride. Works without iPhone.',
+            steps: ['Works automatically with outdoor workouts', 'Review routes in Fitness app on iPhone', 'Workouts → tap any workout → view map and stats'],
+            tips: ['First GPS lock takes a few seconds outdoors', 'For highest accuracy: bring iPhone for dual GPS', 'Saves routes automatically even if you forget'] }
+        },
+        {
+          emoji: '🤖',
+          ar: { name: 'الكشف التلقائي عن التمارين', tagline: 'ساعتك تعرف قبلك',
+            benefit: 'إذا نسيت بدء تمرين، ستكتشفه الساعة وتسألك هل تريد تسجيله.',
+            steps: ['تطبيق Watch على iPhone ← Workout', 'Start Workout Reminder ← تشغيل', 'End Workout Reminder ← تشغيل', 'الآن إذا مشيت أو جريت بدون تسجيل → ستقرع الساعة'],
+            tips: ['يكشف: المشي، الجري، السباحة، الدراجة، وغيرها', 'ستسألك الساعة "هل بدأت تمريناً؟" بعد دقائق', 'حتى إذا قبلت متأخراً، تحسب الوقت من البداية'] },
+          en: { name: 'Auto-Workout Detection', tagline: 'Your watch knows before you do',
+            benefit: 'If you forget to start a workout, the watch detects it and asks if you want to log it.',
+            steps: ['Watch app on iPhone → Workout', 'Start Workout Reminder → ON', 'End Workout Reminder → ON', 'Now if you walk or run without logging → watch will tap you'],
+            tips: ['Detects: walking, running, swimming, cycling, and more', 'Watch asks "Did you start a workout?" after a few minutes', 'Even if you accept late, it counts time from the beginning'] }
+        },
+        {
+          emoji: '📊',
+          ar: { name: 'Smart Stack الذكية', tagline: 'لوحة بيانات تعرف روتينك',
+            benefit: 'اسحب لأعلى من وجه الساعة لرؤية قائمة ذكية من المعلومات تتغير حسب الوقت والسياق.',
+            steps: ['اسحب لأعلى من وجه الساعة', 'اضغط مطولاً لتخصيص الأدوات', 'اضغط + لإضافة أدوات جديدة', 'رتّب الأدوات حسب أهميتها'],
+            tips: ['الصباح: طقس + تقويم الصباح', 'بعد التمرين: ملخص النشاط', 'الليل: جدول النوم', 'يتعلم روتينك تدريجياً ويُظهر الصح في الوقت الصح'] },
+          en: { name: 'Smart Stack', tagline: 'Dashboard that knows your routine',
+            benefit: 'Swipe up from the watch face for a smart scrolling list of info that changes based on time and context.',
+            steps: ['Swipe up from watch face', 'Press and hold to customize widgets', 'Tap + to add new widgets', 'Arrange widgets by priority'],
+            tips: ['Morning: weather + morning calendar', 'Post-workout: activity summary', 'Night: sleep schedule', 'Learns your routine gradually and shows the right info at the right time'] }
+        }
+      ]
+    },
+    {
+      id: 'sleep',
+      icon: '😴',
+      color: '#AF52DE',
+      ar: { title: 'النوم', desc: 'تتبع النوم، نقاط الجودة، التحسين', count: '3 ميزات' },
+      en: { title: 'Sleep', desc: 'Sleep tracking, score, improvement', count: '3 features' },
+      features: [
+        {
+          emoji: '🌙',
+          ar: { name: 'تتبع النوم', tagline: 'يحلل ليلتك بالكامل',
+            benefit: 'يتتبع مراحل النوم الأربعة ويعطيك تقريراً كل صباح: مستيقظ، REM، نوم أساسي، نوم عميق.',
+            steps: ['Health app على iPhone ← تصفح ← النوم ← إعداد', 'حدد هدف النوم وأوقات النوم والاستيقاظ', 'فعّل "تتبع النوم"', 'ارتدِ ساعتك ليلاً', 'الصباح: اقرأ ملخص نومك في تطبيق Health'],
+            tips: ['اشحن الساعة لـ 100% قبل النوم', 'ارتدها أثناء الاستحمام وتهيئة الصباح — هذا وقت الشحن', 'أغلق Focus Mode "النوم" تلقائياً عند وقت النوم'] },
+          en: { name: 'Sleep Tracking', tagline: 'Analyzes your entire night',
+            benefit: 'Tracks all four sleep stages and gives you a morning report: awake, REM, core sleep, deep sleep.',
+            steps: ['Health app on iPhone → Browse → Sleep → Set Up', 'Set sleep goal and bedtime/wake times', 'Enable "Sleep Tracking"', 'Wear your watch to bed', 'Morning: read your sleep summary in Health app'],
+            tips: ['Charge watch to 100% before bed', 'Put it on the charger while showering and getting ready — that\'s your charging window', 'Auto-enable Sleep Focus at bedtime'] }
+        },
+        {
+          emoji: '⭐',
+          ar: { name: 'نقاط النوم (Sleep Score)', tagline: 'جديد في Series 11',
+            benefit: 'تعطيك الساعة تقييماً رقمياً لجودة نومك كل صباح بناءً على المدة والعمق والاستمرارية.',
+            steps: ['يعمل تلقائياً بعد إعداد تتبع النوم', 'اعرض النقاط صباحاً في تطبيق Health', 'تصفح الاتجاه الأسبوعي لفهم نمط نومك'],
+            tips: ['70-85: نوم جيد', '85+: ممتاز', 'أقل من 70: راجع عادات نومك', 'الانتظام في مواعيد النوم يرفع النقاط أكثر من أي شيء آخر'] },
+          en: { name: 'Sleep Score', tagline: 'New in Series 11',
+            benefit: 'The watch gives you a numeric quality rating every morning based on duration, depth, and continuity.',
+            steps: ['Works automatically once sleep tracking is set up', 'View scores in the morning in Health app', 'Browse weekly trend to understand your sleep pattern'],
+            tips: ['70–85: Good sleep', '85+: Excellent', 'Below 70: Review your sleep habits', 'Regular sleep/wake times boost your score more than anything else'] }
+        },
+        {
+          emoji: '😮‍💨',
+          ar: { name: 'الكشف عن انقطاع النفس', tagline: 'قد ينقذ نومك وصحتك',
+            benefit: 'يراقب اضطرابات التنفس أثناء النوم وقد يُنبّهك لوجود انقطاع النفس النومي (Sleep Apnea).',
+            steps: ['يعمل تلقائياً مع تتبع النوم', 'بعد 30 ليلة من البيانات، يمكن أن يُرسل تنبيهاً', 'إذا تلقيت تنبيهاً: راجع طبيبك'],
+            tips: ['انقطاع النفس النومي يؤثر على ملايين دون أن يعلموا', 'علامات: الشخير، الاستيقاظ متعباً، النعاس النهاري', 'FDA أقرّت هذه الميزة كأداة طبية معتمدة'] },
+          en: { name: 'Sleep Apnea Detection', tagline: 'Could save your sleep and health',
+            benefit: 'Monitors breathing disruptions during sleep and may alert you to the presence of sleep apnea.',
+            steps: ['Works automatically with sleep tracking', 'After 30 nights of data, it can send an alert', 'If you receive an alert: consult your doctor'],
+            tips: ['Sleep apnea affects millions without them knowing', 'Signs: snoring, waking up tired, daytime drowsiness', 'FDA-approved as a certified medical feature'] }
+        }
+      ]
+    },
+    {
+      id: 'safety',
+      icon: '🛡️',
+      color: '#FF9500',
+      ar: { title: 'السلامة', desc: 'طوارئ، سقوط، حوادث، SOS', count: '4 ميزات' },
+      en: { title: 'Safety', desc: 'Emergency, fall, crash, SOS', count: '4 features' },
+      features: [
+        {
+          emoji: '🆘',
+          ar: { name: 'SOS الطوارئ', tagline: 'يتصل بالطوارئ ويرسل موقعك',
+            benefit: 'في أي موقف خطر، تضغط الزر الجانبي وساعتك تتصل بالطوارئ وترسل موقعك GPS لجهات الطوارئ تلقائياً.',
+            steps: ['اضغط الزر الجانبي واستمر 5 ثوانٍ', 'سيظهر شريط انزلاق "SOS الطوارئ"', 'أو انتظر حتى تتصل تلقائياً بعد العد التنازلي', 'ترسل الساعة موقعك لجهات الاتصال الطارئة'],
+            tips: ['لا تحتاج لفتح قفل الساعة', 'يرسل موقعك لجهات الطوارئ المحددة تلقائياً', 'أضف جهات طوارئ: Health app ← Medical ID'] },
+          en: { name: 'Emergency SOS', tagline: 'Calls emergency services & sends your location',
+            benefit: 'In any dangerous situation, press the side button and your watch calls emergency services and automatically sends your GPS location to emergency contacts.',
+            steps: ['Press & hold side button for 5 seconds', 'An "Emergency SOS" slide will appear', 'Or wait for it to call automatically after countdown', 'Watch sends your location to emergency contacts'],
+            tips: ['No need to unlock the watch', 'Automatically sends location to your specified emergency contacts', 'Add emergency contacts: Health app → Medical ID'] }
+        },
+        {
+          emoji: '🤸',
+          ar: { name: 'الكشف عن السقوط', tagline: 'يحميك عند الإغماء أو السقوط',
+            benefit: 'يكتشف السقوط الشديد. إذا لم تستجب خلال 60 ثانية، تتصل الساعة بالطوارئ تلقائياً.',
+            steps: ['Watch app على iPhone ← SOS الطوارئ', 'اكتشاف السقوط ← دائماً (Always)', 'سيُنبّهك عند اكتشاف سقوط', 'اضغط "أنا بخير" إذا كنت بخير — أو لا تستجب ليتصل بالطوارئ'],
+            tips: ['اختر "دائماً" وليس أثناء التمرين فقط', 'مفيد جداً لكبار السن أو من يعملون بمفردهم', 'لن يتصل بالطوارئ إذا أكدت أنك بخير'] },
+          en: { name: 'Fall Detection', tagline: 'Protects you when you fall or faint',
+            benefit: 'Detects a hard fall. If you don\'t respond within 60 seconds, the watch automatically calls emergency services.',
+            steps: ['Watch app on iPhone → Emergency SOS', 'Fall Detection → Always', 'It will alert you when a fall is detected', 'Press "I\'m OK" if you\'re fine — or don\'t respond to trigger emergency call'],
+            tips: ['Choose "Always" not just during workouts', 'Very useful for elderly users or those who work alone', 'Won\'t call emergency services if you confirm you\'re OK'] }
+        },
+        {
+          emoji: '🚗',
+          ar: { name: 'الكشف عن الحوادث', tagline: 'يعمل تلقائياً — لا إعداد',
+            benefit: 'يكتشف حوادث السيارات الشديدة ويتصل بالطوارئ إذا لم تستجب. يعمل بمقياس التسارع والجيروسكوب.',
+            steps: ['يعمل تلقائياً — لا يحتاج إعداداً', 'عند كشف حادث: تُنبّهك الساعة وتبدأ عداداً', 'أكّد أنك بخير أو دع الوقت ينتهي للاتصال التلقائي'],
+            tips: ['يعمل في السيارات والدراجات النارية', 'دقيق جداً — تصميم Apple يقلل التنبيهات الخاطئة', 'الموقع يُرسل لجهات طوارئك أيضاً'] },
+          en: { name: 'Crash Detection', tagline: 'Works automatically — no setup',
+            benefit: 'Detects severe car crashes and calls emergency services if you\'re unresponsive. Uses accelerometer and gyroscope.',
+            steps: ['Works automatically — no setup needed', 'When crash detected: watch alerts you and starts a countdown', 'Confirm you\'re OK or let the timer expire for auto-call'],
+            tips: ['Works in cars and on motorcycles', 'Very accurate — Apple\'s design minimizes false alarms', 'Your location is also sent to your emergency contacts'] }
+        },
+        {
+          emoji: '📍',
+          ar: { name: 'المشاركة الحية للموقع', tagline: 'عائلتك تعرف أين أنت',
+            benefit: 'شارك موقعك الحي مع العائلة والأصدقاء مباشرة من الساعة.',
+            steps: ['افتح تطبيق Find My على الساعة أو iPhone', 'اختر Share My Location', 'اختر الشخص ومدة المشاركة', 'يمكن إيقافها في أي وقت'],
+            tips: ['مفيد عند التنزه، السفر، أو السباقات', 'العائلة تراك على الخريطة بشكل حي', 'استهلاك البطارية أعلى أثناء المشاركة'] },
+          en: { name: 'Live Location Sharing', tagline: 'Your family knows where you are',
+            benefit: 'Share your live location with family and friends directly from your watch.',
+            steps: ['Open Find My app on watch or iPhone', 'Choose Share My Location', 'Select person and duration', 'Can be stopped at any time'],
+            tips: ['Useful for hiking, travel, or races', 'Family sees you on the map in real-time', 'Higher battery consumption during sharing'] }
+        }
+      ]
+    },
+    {
+      id: 'productivity',
+      icon: '💼',
+      color: '#007AFF',
+      ar: { title: 'الإنتاجية', desc: 'إشعارات، Siri، الدفع، التحكم', count: '5 ميزات' },
+      en: { title: 'Productivity', desc: 'Notifications, Siri, Pay, controls', count: '5 features' },
+      features: [
+        {
+          emoji: '🔔',
+          ar: { name: 'إدارة الإشعارات', tagline: 'فقط المهم يصلك',
+            benefit: 'تخصيص الإشعارات يجعل ساعتك أداة إنتاجية لا مصدر تشتيت.',
+            steps: ['Watch app على iPhone ← الإشعارات', 'اضغط كل تطبيق ← اختر: Mirror iPhone / السماح / إيقاف', 'المقترح تفعيله: رسائل، هاتف، تقويم، صحة', 'المقترح إيقافه: كل وسائل التواصل الاجتماعي'],
+            tips: ['قاعدة: إذا لم يستحق أن تخرج هاتفك فوراً — أوقفه على الساعة', 'أوضاع التركيز (Focus) تتحكم في الإشعارات تلقائياً', 'الساعة الهادئة أكثر إنتاجية'] },
+          en: { name: 'Notification Management', tagline: 'Only the important stuff reaches you',
+            benefit: 'Customizing notifications turns your watch into a productivity tool, not a distraction machine.',
+            steps: ['Watch app on iPhone → Notifications', 'Tap each app → choose: Mirror iPhone / Allow / Off', 'Recommended ON: messages, phone, calendar, health', 'Recommended OFF: all social media'],
+            tips: ['Rule: if it doesn\'t deserve you pulling out your phone right away — turn it off on the watch', 'Focus modes automatically manage notifications', 'A quieter watch is a more productive watch'] }
+        },
+        {
+          emoji: '🎤',
+          ar: { name: 'Siri على الساعة', tagline: 'أسرع طريقة لأي شيء',
+            benefit: 'Siri على الساعة يؤدي المهام في ثوانٍ بدون إخراج هاتفك.',
+            steps: ['قل "Hey Siri"، أو اضغط مطولاً التاج الرقمي', 'استخدم أوامر مثل: "اضبط مؤقتاً 10 دقائق"', 'أو: "أرسل رسالة لـ [اسم]: في الطريق"', 'أو: "ذكّرني بـ [شيء] الساعة [كذا]"'],
+            tips: ['افضل الأوامر: المؤقتات، التذكيرات، الرسائل، الاتجاهات', '"ما معدل ضربات قلبي؟" → يعطيك القراءة فوراً', '"ابدأ تمرين مشي" → يبدأ التتبع فوراً'] },
+          en: { name: 'Siri on Watch', tagline: 'The fastest way to do anything',
+            benefit: 'Siri on the watch completes tasks in seconds without pulling out your phone.',
+            steps: ['Say "Hey Siri" or press & hold Digital Crown', 'Use commands like: "Set a 10-minute timer"', 'Or: "Text [name]: on my way"', 'Or: "Remind me to [thing] at [time]"'],
+            tips: ['Best commands: timers, reminders, messages, directions', '"What\'s my heart rate?" → gives you a reading instantly', '"Start a walking workout" → begins tracking immediately'] }
+        },
+        {
+          emoji: '💳',
+          ar: { name: 'Apple Pay', tagline: 'ادفع بدون هاتف أو محفظة',
+            benefit: 'ادفع في أي جهاز لا تلامسي بضغطة مزدوجة على الزر الجانبي.',
+            steps: ['Watch app على iPhone ← المحفظة وApple Pay', 'اضف بطاقتك الائتمانية', 'عند الدفع: اضغط الزر الجانبي مرتين', 'قرّب ساعتك من الجهاز'],
+            tips: ['أسرع من إخراج البطاقة أو الهاتف', 'يعمل في المترو، الحافلات، المقاهي، والمحلات', 'يتطلب رمز الساعة — آمن جداً'] },
+          en: { name: 'Apple Pay', tagline: 'Pay without phone or wallet',
+            benefit: 'Pay at any contactless terminal with a double press of the side button.',
+            steps: ['Watch app on iPhone → Wallet & Apple Pay', 'Add your credit/debit card', 'To pay: double-press the side button', 'Hold watch near the payment terminal'],
+            tips: ['Faster than pulling out a card or phone', 'Works on metro, buses, cafes, and stores', 'Requires watch passcode — very secure'] }
+        },
+        {
+          emoji: '🎭',
+          ar: { name: 'أوضاع التركيز', tagline: 'الساعة تعرف وقت العمل ووقت الراحة',
+            benefit: 'أوضاع التركيز تتزامن من iPhone للساعة — في العمل تصلك إشعارات العمل فقط.',
+            steps: ['iPhone ← الإعدادات ← التركيز', 'أنشئ: وضع عمل، شخصي، نوم', 'لكل وضع: حدد التطبيقات وجهات الاتصال المسموحة', 'فعّل جدولة تلقائية (مثلاً: العمل 9ص-6م)', 'يتزامن تلقائياً مع الساعة'],
+            tips: ['أفضل إعداد للإنتاجية في النظام كله', 'النوم يُسكّت الساعة ليلاً تلقائياً', 'يمكن تفعيله يدوياً من الساعة أيضاً'] },
+          en: { name: 'Focus Modes', tagline: 'Watch knows work time from rest time',
+            benefit: 'Focus modes sync from iPhone to the watch — during work, only work notifications reach you.',
+            steps: ['iPhone → Settings → Focus', 'Create: Work, Personal, Sleep modes', 'For each mode: set allowed apps and contacts', 'Enable automatic scheduling (e.g., Work 9am–6pm)', 'Syncs automatically with watch'],
+            tips: ['Best productivity setup in the whole system', 'Sleep mode silences the watch at night automatically', 'Can also be activated manually from the watch'] }
+        },
+        {
+          emoji: '🔓',
+          ar: { name: 'فتح Mac تلقائياً', tagline: 'اقترب من جهازك ويُفتح',
+            benefit: 'عندما ترتدي ساعتك وتقترب من Mac، يفتح تلقائياً بدون كلمة مرور.',
+            steps: ['Mac ← إعدادات النظام ← كلمة مرور تسجيل الدخول', 'فعّل: استخدام Apple Watch للفتح', 'تأكد أن كلا الجهازين متصلان بنفس Apple ID', 'الآن اقترب من Mac وهو سيُفتح'],
+            tips: ['يعمل فقط إذا كانت الساعة مرتداة ومقفلة', 'Face ID مع كمامة: الساعة تفتح iPhone تلقائياً', 'واحدة من أكثر التكاملات راحة في يومك'] },
+          en: { name: 'Auto-Unlock Mac', tagline: 'Walk up to your device and it unlocks',
+            benefit: 'When you\'re wearing your watch and approach your Mac, it unlocks automatically without a password.',
+            steps: ['Mac → System Settings → Login Password', 'Enable: Use Apple Watch to unlock', 'Ensure both devices are on the same Apple ID', 'Now approach your Mac and it unlocks itself'],
+            tips: ['Only works when watch is worn and watch is locked', 'Face ID with mask: watch auto-unlocks iPhone too', 'One of the most convenient integrations in your day'] }
+        }
+      ]
+    },
+    {
+      id: 'communication',
+      icon: '💬',
+      color: '#32ADE6',
+      ar: { title: 'التواصل', desc: 'المكالمات، الرسائل، الرد السريع', count: '4 ميزات' },
+      en: { title: 'Communication', desc: 'Calls, messages, quick reply', count: '4 features' },
+      features: [
+        {
+          emoji: '📞',
+          ar: { name: 'المكالمات من الساعة', tagline: 'هاتفك على معصمك',
+            benefit: 'تستقبل وترسل المكالمات مباشرة من الساعة — مكبّر صوت + ميكروفون مدمجان.',
+            steps: ['المكالمات الواردة: تقرع ساعتك ← اضغط الأخضر للرد', 'للاتصال: افتح تطبيق Phone على الساعة', 'اختر من المفضلة أو الأخيرة أو جهات الاتصال', 'الصوت يأتي من الساعة أو AirPods'],
+            tips: ['النقر المزدوج في الهواء يرد على المكالمة!', 'AirPods تُحوّل الصوت تلقائياً للساعة عند الرد', 'يعمل بدون iPhone عند تفعيل الشبكة الخلوية'] },
+          en: { name: 'Calls from Watch', tagline: 'Your phone on your wrist',
+            benefit: 'Receive and make calls directly from the watch — built-in speaker and microphone.',
+            steps: ['Incoming calls: watch taps you → press green to answer', 'To call: open Phone app on watch', 'Choose from favorites, recents, or contacts', 'Audio comes from watch speaker or AirPods'],
+            tips: ['Double Tap in the air answers the call!', 'AirPods automatically route audio from watch when you answer', 'Works without iPhone when cellular is enabled'] }
+        },
+        {
+          emoji: '💌',
+          ar: { name: 'الرسائل السريعة', tagline: 'رد في ثوانٍ',
+            benefit: 'الرد على الرسائل من الساعة أسرع من إخراج الهاتف — بالصوت أو النص.',
+            steps: ['عند وصول رسالة: اضغط عليها', 'اختر رداً سريعاً أو اضغط رمز الميكروفون للإملاء', 'أو Scribble: ارسم الحروف على الشاشة بإصبعك', 'أو Emoji'],
+            tips: ['الإملاء الصوتي: أسرع طريقة للرد', 'Scribble تعمل بالعربي والإنجليزي', 'الردود السريعة: يمكن تخصيصها من Watch app'] },
+          en: { name: 'Quick Messages', tagline: 'Reply in seconds',
+            benefit: 'Replying to messages from the watch is faster than pulling out your phone — by voice or text.',
+            steps: ['When message arrives: tap it', 'Choose a quick reply or tap microphone icon to dictate', 'Or Scribble: draw letters on screen with your finger', 'Or pick an Emoji'],
+            tips: ['Voice dictation: fastest way to reply', 'Scribble works in both Arabic and English', 'Quick replies: customize them in Watch app'] }
+        },
+        {
+          emoji: '📻',
+          ar: { name: 'Walkie Talkie', tagline: 'تواصل فوري مع مستخدمي Apple Watch',
+            benefit: 'تواصل فوري مثل جهاز اللاسلكي مع أي شخص يملك Apple Watch بضغطة واحدة.',
+            steps: ['افتح تطبيق Walkie-Talkie على الساعة', 'اضغط + لإضافة صديق', 'انتظر قبوله للدعوة', 'اضغط مطولاً على الزر الأصفر للتحدث'],
+            tips: ['ممتاز للأزواج والعائلات', 'يعمل على WiFi والشبكة الخلوية', 'لا يحتاج iPhone — يعمل مباشرة'] },
+          en: { name: 'Walkie Talkie', tagline: 'Instant communication with Apple Watch users',
+            benefit: 'Instant walkie-talkie style communication with any Apple Watch user with a single tap.',
+            steps: ['Open Walkie-Talkie app on watch', 'Tap + to add a friend', 'Wait for them to accept the invitation', 'Press & hold the yellow button to speak'],
+            tips: ['Great for couples and families', 'Works on WiFi and cellular', 'No iPhone needed — works directly'] }
+        },
+        {
+          emoji: '🎵',
+          ar: { name: 'التحكم بالصوت والموسيقى', tagline: 'التحكم من معصمك',
+            benefit: 'تحكم في التشغيل على iPhone أو AirPods أو TV مباشرة من الساعة.',
+            steps: ['اسحب لأعلى في Smart Stack لأداة Now Playing', 'أو افتح تطبيق Now Playing من الساعة', 'تشغيل/إيقاف، تخطي، رفع/خفض الصوت', 'دوّر التاج الرقمي لضبط الصوت'],
+            tips: ['تتحكم في Apple TV من ساعتك!', 'تعمل مع Spotify، Apple Music، وأي تطبيق صوت', 'رفع الصوت بدون أي خطوات — فقط دوّر التاج'] },
+          en: { name: 'Audio & Music Control', tagline: 'Control from your wrist',
+            benefit: 'Control playback on iPhone, AirPods, or Apple TV directly from your watch.',
+            steps: ['Swipe up in Smart Stack for Now Playing widget', 'Or open Now Playing app from the watch', 'Play/pause, skip, raise/lower volume', 'Turn Digital Crown to adjust volume'],
+            tips: ['You can control Apple TV from your watch!', 'Works with Spotify, Apple Music, and any audio app', 'Raise volume with no steps — just turn the crown'] }
+        }
+      ]
+    },
+    {
+      id: 'battery',
+      icon: '🔋',
+      color: '#34C759',
+      ar: { title: 'البطارية', desc: 'التحسين، الشحن، وضع التوفير', count: '4 ميزات' },
+      en: { title: 'Battery', desc: 'Optimization, charging, low power mode', count: '4 features' },
+      features: [
+        {
+          emoji: '⚡',
+          ar: { name: 'وضع توفير الطاقة', tagline: 'من 24 إلى 38+ ساعة',
+            benefit: 'يمدد عمر البطارية بشكل كبير بتعطيل بعض الميزات غير الضرورية مؤقتاً.',
+            steps: ['مركز التحكم ← أيقونة البطارية', 'أو: الإعدادات ← البطارية ← وضع توفير الطاقة', 'يُفعَّل تلقائياً عند 10% (يمكن تغيير ذلك)', 'لإلغاء: نفس الخطوات'],
+            tips: ['يُوقف Always-On Display وعدة مستشعرات', 'الوظائف الأساسية (الوقت، الخطوات، الإشعارات) تعمل', 'فعّله يدوياً في الأيام الطويلة قبل أن تنتهي البطارية'] },
+          en: { name: 'Low Power Mode', tagline: 'From 24 to 38+ hours',
+            benefit: 'Significantly extends battery life by temporarily disabling some non-essential features.',
+            steps: ['Control Center → battery icon', 'Or: Settings → Battery → Low Power Mode', 'Auto-activates at 10% (can be changed)', 'To disable: same steps'],
+            tips: ['Disables Always-On Display and several sensors', 'Core functions (time, steps, notifications) still work', 'Activate manually on long days before battery runs low'] }
+        },
+        {
+          emoji: '📱',
+          ar: { name: 'إدارة الشبكة الخلوية', tagline: 'أكبر مستهلك للبطارية',
+            benefit: 'الشبكة الخلوية تستهلك البطارية أكثر من أي شيء آخر. أوقفها عندما تكون بجانب iPhone.',
+            steps: ['مركز التحكم ← أيقونة الشبكة (خضراء = مفعّلة)', 'اضغط عليها لإيقافها عند وجود iPhone بالقرب', 'تفعّل تلقائياً عند الابتعاد عن iPhone'],
+            tips: ['في المنزل أو المكتب: أوقف الخلوي', 'للجري أو السفر بدون هاتف: شغّل الخلوي', 'الفرق: قد يكون 4-6 ساعات إضافية'] },
+          en: { name: 'Cellular Management', tagline: 'Biggest battery drain',
+            benefit: 'Cellular drains battery more than anything else. Turn it off when you\'re near your iPhone.',
+            steps: ['Control Center → cellular icon (green = on)', 'Tap to disable when iPhone is nearby', 'Activates automatically when you move away from iPhone'],
+            tips: ['At home or office: turn off cellular', 'For runs or travel without phone: enable cellular', 'Difference: may add 4–6 hours of battery life'] }
+        },
+        {
+          emoji: '🌙',
+          ar: { name: 'استراتيجية الشحن المثلى', tagline: 'دائماً بطارية ممتلئة',
+            benefit: 'مع الاستراتيجية الصحيحة لن تكون بطاريتك تحت 50% أبداً.',
+            steps: ['اشحن أثناء الاستحمام الصباحي (45 دقيقة = 80%)', 'أو اشحن أثناء العشاء (ساعة = 100%)', 'للنوم: اشحن حتى 100% قبل ارتدائها ليلاً', 'الشاحن: USB-C ← أسرع من الشاحن القديم'],
+            tips: ['من 0 إلى 80% = 45 دقيقة تقريباً', 'من 0 إلى 100% = 75 دقيقة تقريباً', 'لا تترك الساعة تنتهي بطاريتها كثيراً — أطيل عمر البطارية'] },
+          en: { name: 'Optimal Charging Strategy', tagline: 'Always have a full battery',
+            benefit: 'With the right strategy, you\'ll never be below 50% battery.',
+            steps: ['Charge during your morning shower (45 min = 80%)', 'Or charge during dinner (1 hour = 100%)', 'For sleep: charge to 100% before wearing it at night', 'Charger: USB-C is faster than old charger'],
+            tips: ['0 to 80% = approx. 45 minutes', '0 to 100% = approx. 75 minutes', 'Don\'t let battery die completely often — extends overall battery health'] }
+        },
+        {
+          emoji: '🛠️',
+          ar: { name: 'إعدادات توفير البطارية', tagline: 'خطوات صغيرة — فرق كبير',
+            benefit: 'تعديلات بسيطة في الإعدادات يمكنها إضافة ساعات لعمر بطاريتك.',
+            steps: ['قلّل سطوع Always-On Display: الإعدادات ← الشاشة', 'أوقف الإيقاظ برفع المعصم: الإعدادات ← الشاشة', 'قيّد الخلفية: Watch app ← عام ← تحديث الخلفية', 'أوقف إشعارات التطبيقات الكثيرة'],
+            tips: ['Always-On Display يستهلك ~10% إضافية يومياً', 'الإشعارات الكثيرة تشغّل الشاشة كثيراً', 'أقل تطبيقات = أطول بطارية'] },
+          en: { name: 'Battery Saving Settings', tagline: 'Small tweaks — big difference',
+            benefit: 'Simple settings adjustments can add hours to your battery life.',
+            steps: ['Reduce Always-On Display brightness: Settings → Display', 'Disable Wake on Wrist Raise: Settings → Display', 'Limit background refresh: Watch app → General → Background App Refresh', 'Turn off excessive app notifications'],
+            tips: ['Always-On Display uses ~10% extra per day', 'Many notifications wake the screen frequently', 'Fewer active apps = longer battery'] }
+        }
+      ]
+    },
+    {
+      id: 'settings',
+      icon: '⚙️',
+      color: '#636366',
+      ar: { title: 'الإعدادات الأساسية', desc: 'الإعداد الأول، التكامل، التخصيص', count: '5 ميزات' },
+      en: { title: 'Essential Setup', desc: 'First setup, integrations, customization', count: '5 features' },
+      features: [
+        {
+          emoji: '🔗',
+          ar: { name: 'ربط الساعة بـ iPhone', tagline: 'الخطوة الأولى',
+            benefit: 'الربط الصحيح يضمن عمل جميع الميزات بكفاءة كاملة.',
+            steps: ['افتح تطبيق Watch على iPhone', 'ضع iPhone بجانب الساعة', 'اضغط "ابدأ الإعداد"', 'وجّه كاميرا iPhone على وجه الساعة', 'اتبع الخطوات المتبقية على كلا الجهازين'],
+            tips: ['Apple ID واحد لكلا الجهازين', 'WiFi وBluetooth يجب أن يكونا مفعّلَين على iPhone', 'يستغرق الإعداد الأول 15-20 دقيقة'] },
+          en: { name: 'Pairing with iPhone', tagline: 'The first step',
+            benefit: 'Proper pairing ensures all features work at full efficiency.',
+            steps: ['Open Watch app on iPhone', 'Place iPhone next to the watch', 'Tap "Start Pairing"', 'Point iPhone camera at the watch face', 'Follow remaining steps on both devices'],
+            tips: ['Same Apple ID on both devices', 'WiFi and Bluetooth must be on on iPhone', 'First setup takes 15–20 minutes'] }
+        },
+        {
+          emoji: '🎯',
+          ar: { name: 'إعداد عرض التطبيقات', tagline: 'اجعل الساعة سهلة الاستخدام',
+            benefit: 'الإعداد المناسب للشاشة الرئيسية يجعل الوصول للتطبيقات أسرع وأسهل.',
+            steps: ['اضغط التاج الرقمي للشاشة الرئيسية', 'اضغط مطولاً أي أيقونة', 'اختر: تعديل التطبيقات', 'للمبتدئين: الإعدادات ← عرض التطبيقات ← قائمة'],
+            tips: ['عرض القائمة = أسهل بكثير للمبتدئين', 'الشبكة = أسرع للمحترفين الذين يعرفون مكان كل شيء', 'App Dock (الزر الجانبي): ضع تطبيقاتك الـ10 الأكثر استخداماً'] },
+          en: { name: 'App View Setup', tagline: 'Make watch easy to navigate',
+            benefit: 'The right home screen setup makes accessing apps faster and easier.',
+            steps: ['Press Digital Crown for home screen', 'Press and hold any icon', 'Choose: Edit Apps', 'For beginners: Settings → App View → List'],
+            tips: ['List view = much easier for beginners', 'Grid view = faster for pros who know where everything is', 'App Dock (side button): put your 10 most-used apps there'] }
+        },
+        {
+          emoji: '🎨',
+          ar: { name: 'تخصيص وجه الساعة للعمل', tagline: 'لوحة تحكم احترافية',
+            benefit: 'وجه ساعة احترافي يعطيك كل المعلومات المهمة في نظرة واحدة.',
+            steps: ['اختر وجه Modular أو Infograph', 'المضاعفات المقترحة للعمل:', '→ التقويم / الاجتماع القادم', '→ الطقس / مستوى البطارية', '→ حلقة النشاط / معدل القلب'],
+            tips: ['اعدّ 3 وجوه مختلفة واسحب بينها', 'وجه للعمل + وجه للتمرين + وجه للنوم/الإجازة', 'يمكن تخصيص وجوه مختلفة من Watch app على iPhone'] },
+          en: { name: 'Work Watch Face Setup', tagline: 'Professional control dashboard',
+            benefit: 'A professional watch face gives you all important info at a glance.',
+            steps: ['Choose Modular or Infograph face', 'Recommended work complications:', '→ Calendar / Next Meeting', '→ Weather / Battery Level', '→ Activity Ring / Heart Rate'],
+            tips: ['Set up 3 different faces and swipe between them', 'Face for work + face for workout + face for sleep/weekend', 'Customize different faces from Watch app on iPhone'] }
+        },
+        {
+          emoji: '🔊',
+          ar: { name: 'ضبط الصوت والاهتزاز', tagline: 'تخصيص التنبيهات',
+            benefit: 'الإعداد الصحيح يجعلك تلاحظ التنبيهات المهمة ولا تشعر بالمزعجة.',
+            steps: ['الإعدادات على الساعة ← الأصوات والحساسيات', 'اضبط حجم التنبيه (Haptic Strength)', 'فعّل Haptic Alerts: Prominent = أقوى نقر', 'الوضع الصامت: مركز التحكم ← 🔕'],
+            tips: ['Prominent Haptic يضيف نقرة إضافية قبل التنبيه', 'الليل: فعّل الوضع الصامت وابقِ الاهتزاز', 'في الاجتماعات: وضع المسرح يُسكّت كل شيء ويُعتّم الشاشة'] },
+          en: { name: 'Sound & Haptic Settings', tagline: 'Customize your alerts',
+            benefit: 'The right setup makes you notice important alerts while ignoring annoying ones.',
+            steps: ['Settings on watch → Sounds & Haptics', 'Adjust Alert Volume and Haptic Strength', 'Enable Haptic Alerts: Prominent = stronger tap', 'Silent mode: Control Center → 🔕'],
+            tips: ['Prominent Haptic adds an extra tap before the alert', 'Nighttime: enable silent mode but keep haptics', 'In meetings: Theater Mode silences everything and dims the screen'] }
+        },
+        {
+          emoji: '🌐',
+          ar: { name: 'watchOS 26 — أبرز الجديد', tagline: 'النظام المرافق لـ Series 11',
+            benefit: 'watchOS 26 يجلب لوحات صحية محسّنة، تتبع تمارين أدق، وتكاملاً أعمق مع خدمات iPhone.',
+            steps: ['للتحديث: Watch app على iPhone ← عام ← تحديث البرنامج', 'أو: إعدادات الساعة ← عام ← تحديث البرنامج', 'تأكد أن البطارية فوق 50% قبل التحديث'],
+            tips: ['دائماً حدّث النظام — يحتوي إصلاحات أمان مهمة', 'لوحة الصحة الجديدة تجمع كل بياناتك الصحية', 'التحديث يستغرق 30-45 دقيقة في المتوسط'] },
+          en: { name: 'watchOS 26 — Key Updates', tagline: 'OS bundled with Series 11',
+            benefit: 'watchOS 26 brings improved health dashboards, more accurate workout tracking, and deeper iPhone services integration.',
+            steps: ['To update: Watch app on iPhone → General → Software Update', 'Or: Watch Settings → General → Software Update', 'Ensure battery is above 50% before updating'],
+            tips: ['Always update — contains important security fixes', 'New health dashboard brings all your health data together', 'Update takes 30–45 minutes on average'] }
+        }
+      ]
+    }
+  ],
+
+  checklist: {
+    ar: [
+      'خصّص وجه ساعتك بمضاعفات مفيدة',
+      'اعدّ بطاقة المعلومات الطبية (Medical ID)',
+      'فعّل الكشف عن السقوط ← دائماً',
+      'فعّل ميزة النقر المزدوج (Double Tap)',
+      'اعدّ Apple Pay',
+      'هيّئ أوضاع التركيز على iPhone',
+      'شغّل تتبع النوم',
+      'فعّل مراقبة ضغط الدم',
+      'اضبط هدف حلقة الحركة',
+      'فعّل الفتح التلقائي لـ Mac',
+      'راجع الإشعارات وأوقف وسائل التواصل',
+      'بدّل إلى عرض القائمة للتطبيقات',
+    ],
+    en: [
+      'Customize your watch face with useful complications',
+      'Set up Medical ID in the Health app',
+      'Enable Fall Detection → Always',
+      'Turn on Double Tap gesture',
+      'Set up Apple Pay',
+      'Configure Focus Modes on iPhone',
+      'Turn on sleep tracking',
+      'Enable blood pressure / hypertension monitoring',
+      'Set your Activity Ring Move goal',
+      'Enable Mac Auto-Unlock',
+      'Review notifications & turn off social media',
+      'Switch to List View for apps',
+    ]
+  }
+};
+
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let lang = 'ar';
+let activeCat = null;
+let checkStates = [];
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+function init() {
+  checkStates = new Array(DATA.checklist.ar.length).fill(false);
+  try {
+    const saved = JSON.parse(localStorage.getItem('aw_checks') || '[]');
+    if (Array.isArray(saved)) checkStates = saved;
+  } catch(e) {}
+  renderCategories();
+  renderChecklist();
+  updateProgress();
+}
+
+// ─────────────────────────────────────────────
+// LANGUAGE
+// ─────────────────────────────────────────────
+function setLang(l) {
+  lang = l;
+  document.body.classList.toggle('en', l === 'en');
+  document.documentElement.setAttribute('lang', l);
+  document.documentElement.setAttribute('dir', l === 'ar' ? 'rtl' : 'ltr');
+  document.getElementById('btnAr').classList.toggle('active', l === 'ar');
+  document.getElementById('btnEn').classList.toggle('active', l === 'en');
+  if (activeCat !== null) openPanel(activeCat);
+  renderChecklist();
+  updateProgress();
+}
+
+// ─────────────────────────────────────────────
+// CATEGORIES
+// ─────────────────────────────────────────────
+function renderCategories() {
+  const grid = document.getElementById('catGrid');
+  grid.innerHTML = DATA.categories.map((cat, i) => {
+    const t = cat[lang === 'ar' ? 'ar' : 'en'];
+    return `
+      <div class="cat-card" style="--card-color:${cat.color}" onclick="openPanel(${i})" id="cat-${i}">
+        <span class="cat-icon">${cat.icon}</span>
+        <div class="cat-title">${t.title}</div>
+        <div class="cat-desc">${t.desc}</div>
+        <div class="cat-count">${t.count}</div>
+      </div>`;
+  }).join('');
+}
+
+// ─────────────────────────────────────────────
+// PANEL
+// ─────────────────────────────────────────────
+function openPanel(i) {
+  // Update active card
+  document.querySelectorAll('.cat-card').forEach((c,j) => c.classList.toggle('active', j===i));
+  activeCat = i;
+  const cat = DATA.categories[i];
+  const l = lang === 'ar' ? 'ar' : 'en';
+  const t = cat[l];
+
+  document.getElementById('panelIcon').textContent = cat.icon;
+  document.getElementById('panelTitle').textContent = t.title;
+  document.getElementById('panelSubtitle').textContent = t.desc;
+
+  const list = document.getElementById('featuresList');
+  list.innerHTML = cat.features.map((f, fi) => {
+    const ft = f[l];
+    const stepsHtml = ft.steps.map((s,si) =>
+      `<li><span class="step-num">${si+1}</span><span>${s}</span></li>`
+    ).join('');
+    const tipsHtml = ft.tips.map(tip =>
+      `<div class="tip-item"><span class="tip-icon">💡</span><span>${tip}</span></div>`
+    ).join('');
+    const benefitLabel = l === 'ar' ? 'الفائدة' : 'BENEFIT';
+    const stepsLabel = l === 'ar' ? 'الخطوات' : 'STEPS';
+    const tipsLabel = l === 'ar' ? 'نصائح وملاحظات' : 'TIPS & NOTES';
+
+    return `
+      <div class="feature-item" id="feat-${i}-${fi}">
+        <button class="feature-trigger" onclick="toggleFeature(${i},${fi})">
+          <div class="feature-trigger-left">
+            <span class="feature-emoji">${f.emoji}</span>
+            <div>
+              <div class="feature-name">${ft.name}</div>
+              <div class="feature-tagline">${ft.tagline}</div>
+            </div>
+          </div>
+          <span class="feature-chevron">▼</span>
+        </button>
+        <div class="feature-body">
+          <div class="feature-divider"></div>
+          <div class="info-block">
+            <div class="info-label label-benefit">
+              <span class="info-dot dot-benefit"></span>${benefitLabel}
+            </div>
+            <div class="info-content">${ft.benefit}</div>
+          </div>
+          <div class="info-block">
+            <div class="info-label label-steps">
+              <span class="info-dot dot-steps"></span>${stepsLabel}
+            </div>
+            <ul class="steps-list">${stepsHtml}</ul>
+          </div>
+          <div class="info-block" style="margin-bottom:0">
+            <div class="info-label label-tips">
+              <span class="info-dot dot-tips"></span>${tipsLabel}
+            </div>
+            <div class="tips-list">${tipsHtml}</div>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  const panel = document.getElementById('detailPanel');
+  panel.classList.add('open');
+  panel.style.animation = 'none';
+  panel.offsetHeight;
+  panel.style.animation = '';
+  setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+}
+
+function closePanel() {
+  document.getElementById('detailPanel').classList.remove('open');
+  document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
+  activeCat = null;
+}
+
+function toggleFeature(catI, featI) {
+  const el = document.getElementById(`feat-${catI}-${featI}`);
+  el.classList.toggle('expanded');
+}
+
+// ─────────────────────────────────────────────
+// CHECKLIST
+// ─────────────────────────────────────────────
+function renderChecklist() {
+  const l = lang === 'ar' ? 'ar' : 'en';
+  const items = DATA.checklist[l];
+  const grid = document.getElementById('checklistGrid');
+  grid.innerHTML = items.map((item, i) => `
+    <div class="check-item ${checkStates[i] ? 'done' : ''}" onclick="toggleCheck(${i})">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">${item}</div>
+    </div>`).join('');
+}
+
+function toggleCheck(i) {
+  checkStates[i] = !checkStates[i];
+  try { localStorage.setItem('aw_checks', JSON.stringify(checkStates)); } catch(e) {}
+  renderChecklist();
+  updateProgress();
+}
+
+function updateProgress() {
+  const done = checkStates.filter(Boolean).length;
+  const total = checkStates.length;
+  const pct = Math.round((done/total)*100);
+  document.getElementById('checkCount').textContent = done;
+  document.getElementById('progressBar').style.width = pct + '%';
+  const lbl = lang === 'ar' ? `${pct}٪ مكتمل` : `${pct}% done`;
+  document.getElementById('progressLabel').textContent = lbl;
+}
+
+// ─────────────────────────────────────────────
+// SCROLL TOP
+// ─────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('scrollTop');
+  btn.classList.toggle('visible', window.scrollY > 400);
+});
+
+// ─────────────────────────────────────────────
+// START
+// ─────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
