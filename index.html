@@ -549,7 +549,7 @@
     font-size: 18px;
     display: flex; align-items: center; justify-content: center;
     opacity: 0; pointer-events: none;
-    transition: opacity 0.3s, transform 0.3s;
+    transition: opacity 0.3s, transform 0.3s, left 0.3s, right 0.3s; /* Fix #6 */
     z-index: 200;
     box-shadow: 0 4px 24px rgba(255,107,53,0.4);
   }
@@ -564,7 +564,9 @@
 
   @media (max-width: 600px) {
     .hero { padding: 50px 0 40px; }
-    .panel-header { padding: 20px; flex-direction: column; }
+    .panel-header { padding: 20px; flex-direction: column; position: relative; }
+    .panel-close { position: absolute; top: 16px; right: 16px; } /* Fix #4 */
+    body.en .panel-close { right: auto; left: 16px; } /* Fix #4: RTL-aware */
     .features-list { padding: 16px 16px 24px; }
     .panel-header-left { flex-direction: column; align-items: flex-start; }
     .hero-stats { gap: 24px; }
@@ -604,7 +606,7 @@
       <span class="en-text">Apple Watch Series 11 — Complete Interactive Guide</span>
     </div>
     <h1 class="hero-title">
-      <span class="ar">اكتشف كل شيء<br>عن ساعتك</span>
+      <span class="ar">اكتشف كل شيء<br>عن <span>ساعتك</span></span>
       <span class="en-text">Discover Everything<br>About Your <span>Watch</span></span>
     </h1>
     <p class="hero-sub">
@@ -1272,7 +1274,7 @@ function init() {
   checkStates = new Array(DATA.checklist.ar.length).fill(false);
   try {
     const saved = JSON.parse(localStorage.getItem('aw_checks') || '[]');
-    if (Array.isArray(saved)) checkStates = saved;
+    if (Array.isArray(saved) && saved.length === DATA.checklist.ar.length) checkStates = saved; // Fix #5
   } catch(e) {}
   renderCategories();
   renderChecklist();
@@ -1289,6 +1291,7 @@ function setLang(l) {
   document.documentElement.setAttribute('dir', l === 'ar' ? 'rtl' : 'ltr');
   document.getElementById('btnAr').classList.toggle('active', l === 'ar');
   document.getElementById('btnEn').classList.toggle('active', l === 'en');
+  renderCategories(); // Fix #2: re-render cards in new language
   if (activeCat !== null) openPanel(activeCat);
   renderChecklist();
   updateProgress();
